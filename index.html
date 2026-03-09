@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art-Z | Yassine Wirzgane - Artist & Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+<style>
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-dark: #141414;
+    --bg-darker: #0d0d0d;
+    --bg-card: #1a1a1a;
+    --text: #f5f5f5;
+    --text-muted: #888888;
+    --primary: #dc2626;
+    --secondary: #3b82f6;
+    --accent: #eab308;
+    --border: #333333;
+    --pixel-red: #dc2626;
+    --pixel-blue: #3b82f6;
+    --pixel-green: #22c55e;
+    --pixel-yellow: #eab308;
+    --pixel-purple: #a855f7;
+    --pixel-cyan: #06b6d4;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    line-height: 1.8;
+    background-color: var(--bg-darker);
+    color: var(--text);
+    overflow-x: hidden;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* ===== CRT OVERLAY ===== */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+}
+
+/* ===== NAVIGATION ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 16px 24px;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(13, 13, 13, 0.95);
+    border-bottom: 4px solid var(--border);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.logo-icon {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #7f1d1d;
+}
+
+.menu-toggle:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(13, 13, 13, 0.98);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 80px 20px;
+    overflow: hidden;
+}
+
+.floating-pixels {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.pixel {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(220, 38, 38, 0.2);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Terminal */
+.terminal {
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    text-align: left;
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-bottom: 4px solid var(--border);
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+}
+
+.terminal-dot.red { background: var(--pixel-red); }
+.terminal-dot.yellow { background: var(--pixel-yellow); }
+.terminal-dot.green { background: var(--pixel-green); }
+
+.terminal-title {
+    font-size: 8px;
+    color: var(--text-muted);
+    margin-left: 8px;
+}
+
+.terminal-body {
+    padding: 16px;
+    font-family: monospace;
+    font-size: 10px;
+    min-height: 80px;
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+    color: var(--primary);
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Brand & Title */
+.brand-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: 36px;
+    line-height: 1.4;
+    margin-bottom: 24px;
+}
+
+h1 .line1 {
+    display: block;
+    color: var(--text);
+    position: relative;
+}
+
+h1 .line2 {
+    display: block;
+    color: var(--primary);
+    margin-top: 8px;
+}
+
+/* Glitch Effect */
+.glitch .line1 {
+    position: relative;
+}
+
+.glitch .line1::before,
+.glitch .line1::after {
+    content: 'YASSINE';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch .line1::before {
+    color: #ff0000;
+    animation: glitch-1 0.3s infinite linear alternate-reverse;
+    clip-path: inset(20% 0 60% 0);
+}
+
+.glitch .line1::after {
+    color: #00ffff;
+    animation: glitch-2 0.3s infinite linear alternate-reverse;
+    clip-path: inset(60% 0 20% 0);
+}
+
+@keyframes glitch-1 {
+    0% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 0); }
+    20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, 0); }
+    40% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 0); }
+    60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+    80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 0); }
+    100% { clip-path: inset(30% 0 30% 0); transform: translate(2px, 0); }
+}
+
+@keyframes glitch-2 {
+    0% { clip-path: inset(60% 0 20% 0); transform: translate(2px, 0); }
+    20% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 0); }
+    40% { clip-path: inset(40% 0 40% 0); transform: translate(2px, 0); }
+    60% { clip-path: inset(5% 0 80% 0); transform: translate(-2px, 0); }
+    80% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 0); }
+    100% { clip-path: inset(30% 0 30% 0); transform: translate(-2px, 0); }
+}
+
+.subtitle {
+    font-size: 10px;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 2;
+}
+
+/* Skills */
+.skills {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: border-color 0.3s;
+}
+
+.skill-item:hover .skill-icon {
+    border-color: var(--primary);
+}
+
+.skill-item span {
+    font-size: 8px;
+    color: var(--text-muted);
+}
+
+/* Pixel Button */
+.pixel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #7f1d1d, 0 6px 0 rgba(0,0,0,0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.pixel-btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #7f1d1d, 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.pixel-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.pixel-btn.secondary {
+    background: var(--secondary);
+    box-shadow: 0 4px 0 #1e3a8a, 0 6px 0 rgba(0,0,0,0.3);
+}
+
+.pixel-btn.secondary:hover {
+    box-shadow: 0 2px 0 #1e3a8a, 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+    font-size: 8px;
+    color: var(--text-muted);
+}
+
+.arrow {
+    font-size: 12px;
+    color: var(--primary);
+    margin-top: 4px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Corner Decorations */
+.corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-color: rgba(220, 38, 38, 0.3);
+    border-style: solid;
+}
+
+.corner-tl { top: 32px; left: 32px; border-width: 4px 0 0 4px; }
+.corner-tr { top: 32px; right: 32px; border-width: 4px 4px 0 0; }
+.corner-bl { bottom: 32px; left: 32px; border-width: 0 0 4px 4px; }
+.corner-br { bottom: 32px; right: 32px; border-width: 0 4px 4px 0; }
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.section-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.section-dots span:first-child,
+.section-dots span:last-child {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+}
+
+.section-dots.blue span:first-child,
+.section-dots.blue span:last-child {
+    background: var(--secondary);
+}
+
+.section-dots.yellow span:first-child,
+.section-dots.yellow span:last-child {
+    background: var(--accent);
+}
+
+.section-dots span:nth-child(2) {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.section-header h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 16px;
+}
+
+.section-header p {
+    font-size: 10px;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 2;
+}
+
+/* ===== PORTFOLIO SECTION ===== */
+.portfolio {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-bottom: 48px;
+}
+
+.portfolio-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.portfolio-item::before,
+.portfolio-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-color: var(--primary);
+    border-style: solid;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.portfolio-item::before {
+    top: -8px;
+    left: -8px;
+    border-width: 2px 0 0 2px;
+}
+
+.portfolio-item::after {
+    bottom: -8px;
+    right: -8px;
+    border-width: 0 2px 2px 0;
+}
+
+.portfolio-item:hover::before,
+.portfolio-item:hover::after {
+    opacity: 1;
+}
+
+.portfolio-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+}
+
+.portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.portfolio-item:hover .portfolio-image img {
+    transform: scale(1.1);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.eye-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    animation: float 2s ease-in-out infinite;
+}
+
+.portfolio-overlay span {
+    font-size: 10px;
+    color: var(--text);
+}
+
+.category-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 8px 12px;
+    background: rgba(13, 13, 13, 0.9);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 8px;
+}
+
+.portfolio-info {
+    padding: 16px;
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    border-top: none;
+}
+
+.portfolio-info h3 {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    font-size: 8px;
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+}
+
+.view-all {
+    text-align: center;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+}
+
+.about-card,
+.skills-card,
+.experience-card {
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.about-card h3,
+.skills-card h3,
+.experience-card h3 {
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+.about-card h3 { color: var(--primary); }
+.skills-card h3 { color: var(--secondary); }
+.experience-card h3 { color: var(--accent); }
+
+.about-card p {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 2;
+    margin-bottom: 16px;
+}
+
+.about-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.stat-item {
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.stat-item:hover {
+    border-color: var(--primary);
+}
+
+.stat-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.stat-value {
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 8px;
+    color: var(--text-muted);
+}
+
+/* Skill Bars */
+.skill-bar {
+    margin-bottom: 16px;
+}
+
+.skill-bar:last-child {
+    margin-bottom: 0;
+}
+
+.skill-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.skill-label span {
+    font-size: 10px;
+}
+
+.skill-label span:first-child {
+    color: var(--text);
+}
+
+.skill-label span:last-child {
+    color: var(--text-muted);
+}
+
+.skill-progress {
+    height: 16px;
+    background: var(--bg-darker);
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-progress::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 4px,
+        rgba(255,255,255,0.05) 4px,
+        rgba(255,255,255,0.05) 5px
+    );
+}
+
+.skill-fill {
+    height: 100%;
+    transition: width 1s ease-out;
+    position: relative;
+}
+
+.skill-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(255,255,255,0.3);
+}
+
+.skill-fill.yellow { background: var(--pixel-yellow); }
+.skill-fill.blue { background: var(--pixel-blue); }
+.skill-fill.cyan { background: var(--pixel-cyan); }
+.skill-fill.purple { background: var(--pixel-purple); }
+.skill-fill.green { background: var(--pixel-green); }
+.skill-fill.red { background: var(--pixel-red); }
+
+/* Experience */
+.experience-item {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.experience-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.year {
+    font-size: 10px;
+    color: var(--primary);
+    padding-top: 2px;
+}
+
+.role {
+    font-size: 11px;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.company {
+    font-size: 9px;
+    color: var(--text-muted);
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+}
+
+.contact-card,
+.social-card,
+.form-card,
+.availability {
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.contact-card h3,
+.social-card h3,
+.form-card h3 {
+    font-size: 12px;
+    margin-bottom: 24px;
+}
+
+.contact-card h3 { color: var(--primary); }
+.social-card h3 { color: var(--secondary); }
+.form-card h3 { color: var(--accent); }
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-darker);
+    border: 4px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: border-color 0.3s;
+}
+
+.contact-item:hover .contact-icon {
+    border-color: var(--primary);
+}
+
+.contact-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.contact-value {
+    font-size: 10px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-value:hover {
+    color: var(--primary);
+}
+
+/* Social Grid */
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 2px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 9px;
+    transition: border-color 0.3s, color 0.3s;
+}
+
+.social-link:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.social-link span:first-child {
+    font-size: 16px;
+}
+
+/* Availability */
+.availability {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-color: var(--pixel-green);
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--pixel-green);
+    border-radius: 50%;
+    position: relative;
+}
+
+.status-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--pixel-green);
+    border-radius: 50%;
+    animation: ping 1.5s ease-out infinite;
+}
+
+@keyframes ping {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.status-text {
+    font-size: 10px;
+    color: var(--pixel-green);
+    margin-bottom: 4px;
+}
+
+.status-sub {
+    font-size: 11px;
+    color: var(--text);
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 16px;
+    background: var(--bg-darker);
+    border: 2px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 10px;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.submit-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Thank You */
+.thank-you {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 64px;
+}
+
+.thank-you .line {
+    width: 64px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border));
+}
+
+.thank-you .line:last-child {
+    background: linear-gradient(90deg, var(--border), transparent);
+}
+
+.thank-you span {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    padding: 32px;
+    text-align: center;
+    border-top: 4px solid var(--border);
+}
+
+footer p {
+    font-size: 9px;
+    color: var(--text-muted);
+}
+
+/* ===== MODAL ===== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border: 4px solid var(--border);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-info {
+    padding: 24px;
+}
+
+.modal-info h3 {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.modal-category {
+    font-size: 10px;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.modal-info p {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 2;
+    margin-bottom: 20px;
+}
+
+.modal-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.modal-tags span {
+    font-size: 8px;
+    padding: 6px 12px;
+    background: var(--bg-darker);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* ===== TOAST ===== */
+.toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--pixel-green);
+    color: white;
+    padding: 16px 32px;
+    font-size: 10px;
+    z-index: 3000;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .skills {
+        gap: 16px;
+    }
+
+    .portfolio-grid,
+    .about-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .corner {
+        width: 20px;
+        height: 20px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border: 2px solid var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b91c1c;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
+</style>
+</head>
+<body>
+    <!-- CRT Overlay -->
+    <div class="crt-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <span class="logo-icon">&#9998;</span>
+                <span>ART-Z</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero">HOME</a></li>
+                <li><a href="#portfolio">WORK</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#hero">HOME</a>
+        <a href="#portfolio">WORK</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="floating-pixels" id="floatingPixels"></div>
+        
+        <div class="hero-content">
+            <!-- Terminal -->
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                    <span class="terminal-title">terminal.exe</span>
+                </div>
+                <div class="terminal-body">
+                    <div id="terminalText"></div>
+                    <span class="cursor" id="cursor">_</span>
+                </div>
+            </div>
+
+            <!-- Main Title -->
+            <div class="brand-label">ART-Z PRESENTS</div>
+            <h1 class="glitch" data-text="YASSINE">
+                <span class="line1">YASSINE</span>
+                <span class="line2">WIRZGANE</span>
+            </h1>
+            <p class="subtitle">ARTIST & DESIGNER CRAFTING VISUAL EXPERIENCES WITH PIXEL-PERFECT PRECISION AND RETRO SOUL</p>
+
+            <!-- Skills -->
+            <div class="skills">
+                <div class="skill-item">
+                    <div class="skill-icon">&#9998;</div>
+                    <span>ART</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">&#127912;</div>
+                    <span>DESIGN</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">&#9636;</div>
+                    <span>CREATE</span>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="cta-buttons">
+                <a href="#portfolio" class="pixel-btn">VIEW WORK</a>
+                <a href="#contact" class="pixel-btn secondary">GET IN TOUCH</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="arrow">&#9660;</div>
+        </div>
+
+        <!-- Corner Decorations -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="section-header">
+            <div class="section-dots">
+                <span></span>
+                <span>SELECTED WORKS</span>
+                <span></span>
+            </div>
+            <h2>PORTFOLIO</h2>
+            <p>A COLLECTION OF PIXEL-PERFECT CREATIONS AND DIGITAL EXPERIMENTS</p>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-item" data-project="1">
+                <div class="portfolio-image">
+                    <img src="images/power1.png" alt="POWER">
+                    <div class="portfolio-overlay">
+                        <div class="eye-icon">&#128065;</div>
+                        <span>VIEW PROJECT</span>
+                    </div>
+                    <span class="category-badge">ALBUM ART</span>
+                </div>
+                <div class="portfolio-info">
+                    <h3>POWER</h3>
+                    <div class="tags">
+                        <span>PIXEL ART</span>
+                        <span>DIGITAL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-project="2">
+                <div class="portfolio-image">
+                    <img src="images/random1.png" alt="PREQUEL">
+                    <div class="portfolio-overlay">
+                        <div class="eye-icon">&#128065;</div>
+                        <span>VIEW PROJECT</span>
+                    </div>
+                    <span class="category-badge">CONCEPT ART</span>
+                </div>
+                <div class="portfolio-info">
+                    <h3>PREQUEL</h3>
+                    <div class="tags">
+                        <span>CONCEPT</span>
+                        <span>ABSTRACT</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-project="3">
+                <div class="portfolio-image">
+                    <img src="images/shobee crown2.png" alt="CROWN">
+                    <div class="portfolio-overlay">
+                        <div class="eye-icon">&#128065;</div>
+                        <span>VIEW PROJECT</span>
+                    </div>
+                    <span class="category-badge">DIGITAL ART</span>
+                </div>
+                <div class="portfolio-info">
+                    <h3>CROWN</h3>
+                    <div class="tags">
+                        <span>MONOCHROME</span>
+                        <span>SILHOUETTE</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-project="4">
+                <div class="portfolio-image">
+                    <img src="images/Steve Supreme.jpeg" alt="SUPREME">
+                    <div class="portfolio-overlay">
+                        <div class="eye-icon">&#128065;</div>
+                        <span>VIEW PROJECT</span>
+                    </div>
+                    <span class="category-badge">BRAND ART</span>
+                </div>
+                <div class="portfolio-info">
+                    <h3>SUPREME</h3>
+                    <div class="tags">
+                        <span>BRAND</span>
+                        <span>STREETWEAR</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-all">
+            <a href="#" class="pixel-btn secondary">VIEW ALL PROJECTS</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-header">
+            <div class="section-dots blue">
+                <span></span>
+                <span>ABOUT ME</span>
+                <span></span>
+            </div>
+            <h2>THE ARTIST</h2>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-left">
+                <div class="about-card">
+                    <h3>WHO AM I?</h3>
+                    <p>I'M YASSINE WIRZGANE, A VISUAL ARTIST AND DESIGNER WITH A PASSION FOR PIXEL ART AND RETRO AESTHETICS. I BRING TOGETHER THE BEST OF BOTH WORLDS - CONTEMPORARY DESIGN AND NOSTALGIC 8-BIT VISUALS.</p>
+                    <p>EVERY PIECE I CREATE IS CRAFTED WITH ATTENTION TO DETAIL, ENSURING PIXEL-PERFECT PRECISION AND VISUAL IMPACT.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">&#127919;</div>
+                        <div class="stat-value" data-target="50">0</div>
+                        <div class="stat-label">PROJECTS</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">&#128187;</div>
+                        <div class="stat-value" data-target="5">0</div>
+                        <div class="stat-label">YEARS EXP</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">&#10024;</div>
+                        <div class="stat-value" data-target="30">0</div>
+                        <div class="stat-label">HAPPY CLIENTS</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">&#9889;</div>
+                        <div class="stat-value" data-target="999">0</div>
+                        <div class="stat-label">COFFEE CUPS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-right">
+                <div class="skills-card">
+                    <h3>SKILL TREE</h3>
+                    <div class="skill-bar">
+                        <div class="skill-label">
+                            <span>DIGITAL ART</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill yellow" style="width: 0%" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-label">
+                            <span>PHOTOSHOP</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill blue" style="width: 0%" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-label">
+                            <span>ILLUSTRATOR</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill cyan" style="width: 0%" data-width="92"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-label">
+                            <span>BRANDING</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill purple" style="width: 0%" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-label">
+                            <span>UI/UX DESIGN</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill green" style="width: 0%" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-label">
+                            <span>PIXEL ART</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill red" style="width: 0%" data-width="90"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <h3>EXPERIENCE</h3>
+                    <div class="experience-item">
+                        <span class="year">2024</span>
+                        <div class="exp-info">
+                            <div class="role">LEAD DESIGNER</div>
+                            <div class="company">@ ART-Z STUDIO</div>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year">2022</span>
+                        <div class="exp-info">
+                            <div class="role">VISUAL ARTIST</div>
+                            <div class="company">@ CREATIVE AGENCY</div>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year">2020</span>
+                        <div class="exp-info">
+                            <div class="role">JUNIOR DESIGNER</div>
+                            <div class="company">@ DESIGN STUDIO</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <div class="section-dots yellow">
+                <span></span>
+                <span>GET IN TOUCH</span>
+                <span></span>
+            </div>
+            <h2>CONTACT</h2>
+            <p>READY TO START A PROJECT? LET'S CREATE SOMETHING AMAZING TOGETHER</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-left">
+                <div class="contact-card">
+                    <h3>LET'S CONNECT</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">&#9993;</div>
+                        <div>
+                            <div class="contact-label">EMAIL</div>
+                            <a href="mailto:yassine@art-z.design" class="contact-value">YASSINE@ART-Z.DESIGN</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">&#128205;</div>
+                        <div>
+                            <div class="contact-label">LOCATION</div>
+                            <span class="contact-value">DIGITAL REALM / WORLDWIDE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-card">
+                    <h3>FOLLOW ME</h3>
+                    <div class="social-grid">
+                        <a href="https://www.instagram.com/invites/contact/?igsh=t2qjoox2201o&utm_content=x43oehu" target="_blank" class="social-link">
+                            <span>&#128247;</span>
+                            <span>INSTAGRAM</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@stylish_man_72?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">
+                            <span>&#9835;</span>
+                            <span>TIKTOK</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span>&#127912;</span>
+                            <span>BEHANCE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="availability">
+                    <div class="status-dot"></div>
+                    <div>
+                        <div class="status-text">AVAILABLE FOR WORK</div>
+                        <div class="status-sub">OPEN TO NEW PROJECTS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-right">
+                <div class="form-card">
+                    <h3>SEND MESSAGE</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>NAME</label>
+                            <input type="text" name="name" placeholder="ENTER YOUR NAME" required>
+                        </div>
+                        <div class="form-group">
+                            <label>EMAIL</label>
+                            <input type="email" name="email" placeholder="ENTER YOUR EMAIL" required>
+                        </div>
+                        <div class="form-group">
+                            <label>MESSAGE</label>
+                            <textarea name="message" rows="5" placeholder="TELL ME ABOUT YOUR PROJECT..." required></textarea>
+                        </div>
+                        <button type="submit" class="pixel-btn submit-btn">
+                            <span>&#9993;</span>
+                            SEND MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="thank-you">
+            <div class="line"></div>
+            <span>THANKS FOR VISITING</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 ART-Z // YASSINE WIRZGANE // PRESS START TO CONTINUE</p>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-image">
+                <img src="" alt="" id="modalImage">
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <div class="modal-category" id="modalCategory"></div>
+                <p id="modalDescription"></p>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="modal-actions">
+                    <a href="#" class="pixel-btn">VIEW LIVE</a>
+                    <a href="#" class="pixel-btn secondary">SOURCE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script>
+// ===== TERMINAL TYPING EFFECT =====
+const terminalLines = [
+    '> INITIALIZING...',
+    '> LOADING PORTFOLIO...',
+    '> WELCOME TO MY WORLD'
+];
+
+let currentLine = 0;
+let currentChar = 0;
+const terminalText = document.getElementById('terminalText');
+const cursor = document.getElementById('cursor');
+
+function typeTerminal() {
+    if (currentLine < terminalLines.length) {
+        const line = terminalLines[currentLine];
+        
+        if (currentChar <= line.length) {
+            // Update display
+            let display = '';
+            for (let i = 0; i < currentLine; i++) {
+                display += `<div style="color: #22c55e; margin-bottom: 4px;">${terminalLines[i]}</div>`;
+            }
+            display += `<div style="color: #dc2626;">${line.slice(0, currentChar)}</div>`;
+            terminalText.innerHTML = display;
+            
+            currentChar++;
+            setTimeout(typeTerminal, 50);
+        } else {
+            currentLine++;
+            currentChar = 0;
+            setTimeout(typeTerminal, 800);
+        }
+    } else {
+        // All lines typed - keep cursor blinking
+        let display = '';
+        for (let i = 0; i < terminalLines.length; i++) {
+            display += `<div style="color: #22c55e; margin-bottom: 4px;">${terminalLines[i]}</div>`;
+        }
+        terminalText.innerHTML = display;
+        cursor.style.display = 'inline';
+    }
+}
+
+// Start typing animation
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(typeTerminal, 500);
+});
+
+// ===== FLOATING PIXELS =====
+function createFloatingPixels() {
+    const container = document.getElementById('floatingPixels');
+    const pixelCount = 20;
+
+    for (let i = 0; i < pixelCount; i++) {
+        const pixel = document.createElement('div');
+        pixel.className = 'pixel';
+        pixel.style.left = `${Math.random() * 100}%`;
+        pixel.style.top = `${Math.random() * 100}%`;
+        pixel.style.animationDelay = `${Math.random() * 3}s`;
+        pixel.style.animationDuration = `${2 + Math.random() * 2}s`;
+        container.appendChild(pixel);
+    }
+}
+
+createFloatingPixels();
+
+// ===== NAVBAR SCROLL EFFECT =====
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// ===== MOBILE MENU =====
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    menuToggle.innerHTML = mobileMenu.classList.contains('active') ? '&times;' : '&#9776;';
+});
+
+// Close mobile menu when clicking a link
+mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        menuToggle.innerHTML = '&#9776;';
+    });
+});
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// ===== PORTFOLIO MODAL =====
+const projectData = {
+    1: {
+        title: 'POWER',
+        category: 'ALBUM ART',
+        image: 'images/power1.png',
+        description: 'Pixel art reinterpretation of iconic album artwork. Features a stylized skull with crown elements against a bold red backdrop.',
+        tags: ['PIXEL ART', 'DIGITAL', 'ALBUM COVER']
+    },
+    2: {
+        title: 'PREQUEL',
+        category: 'CONCEPT ART',
+        image: 'images/random1.png',
+        description: 'Abstract pixel portrait with thermal imaging aesthetic. Explores the intersection of identity and digital distortion.',
+        tags: ['CONCEPT', 'ABSTRACT', 'PORTRAIT']
+    },
+    3: {
+        title: 'CROWN',
+        category: 'DIGITAL ART',
+        image: 'images/shobee crown2.png',
+        description: 'Monochromatic pixel composition featuring a silhouetted figure with crown. Examines themes of power and anonymity.',
+        tags: ['MONOCHROME', 'SILHOUETTE', 'DIGITAL']
+    },
+    4: {
+        title: 'SUPREME',
+        category: 'BRAND ART',
+        image: 'images/Steve Supreme.jpeg',
+        description: 'Pixelated brand collaboration artwork. Merges streetwear aesthetics with 8-bit gaming culture.',
+        tags: ['BRAND', 'STREETWEAR', 'PIXEL']
+    }
+};
+
+const modal = document.getElementById('projectModal');
+const modalClose = document.getElementById('modalClose');
+const modalImage = document.getElementById('modalImage');
+const modalTitle = document.getElementById('modalTitle');
+const modalCategory = document.getElementById('modalCategory');
+const modalDescription = document.getElementById('modalDescription');
+const modalTags = document.getElementById('modalTags');
+
+// Open modal
+function openModal(projectId) {
+    const project = projectData[projectId];
+    if (!project) return;
+
+    modalImage.src = project.image;
+    modalImage.alt = project.title;
+    modalTitle.textContent = project.title;
+    modalCategory.textContent = project.category;
+    modalDescription.textContent = project.description;
+    
+    modalTags.innerHTML = project.tags.map(tag => 
+        `<span>${tag}</span>`
+    ).join('');
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close modal
+function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Event listeners for portfolio items
+document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const projectId = item.dataset.project;
+        openModal(projectId);
+    });
+});
+
+// Close modal events
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// ===== STATS COUNTER ANIMATION =====
+function animateStats() {
+    const statValues = document.querySelectorAll('.stat-value');
+    
+    statValues.forEach(stat => {
+        const target = parseInt(stat.dataset.target);
+        const duration = 2000;
+        const steps = 60;
+        const increment = target / steps;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            stat.textContent = Math.floor(current) + '+';
+        }, duration / steps);
+    });
+}
+
+// ===== SKILL BARS ANIMATION =====
+function animateSkillBars() {
+    const skillFills = document.querySelectorAll('.skill-fill');
+    
+    skillFills.forEach((fill, index) => {
+        setTimeout(() => {
+            const width = fill.dataset.width;
+            fill.style.width = width + '%';
+        }, index * 100);
+    });
+}
+
+// ===== INTERSECTION OBSERVER =====
+const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            if (entry.target.classList.contains('about')) {
+                animateStats();
+                animateSkillBars();
+            }
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe about section
+const aboutSection = document.querySelector('.about');
+if (aboutSection) {
+    observer.observe(aboutSection);
+}
+
+// ===== CONTACT FORM =====
+const contactForm = document.getElementById('contactForm');
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toastMessage');
+
+function showToast(message) {
+    toastMessage.textContent = message;
+    toast.classList.add('active');
+    
+    setTimeout(() => {
+        toast.classList.remove('active');
+    }, 3000);
+}
+
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state
+    submitBtn.innerHTML = '<span>...</span> SENDING...';
+    submitBtn.disabled = true;
+    
+    // Simulate form submission
+    setTimeout(() => {
+        showToast('MESSAGE SENT SUCCESSFULLY!');
+        contactForm.reset();
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 1500);
+});
+
+// ===== REVEAL ANIMATIONS =====
+function revealOnScroll() {
+    const elements = document.querySelectorAll('.portfolio-item, .about-card, .skills-card, .experience-card, .contact-card, .social-card');
+    
+    elements.forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight - 100;
+        
+        if (isVisible) {
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 100);
+        }
+    });
+}
+
+// Set initial styles for reveal animation
+document.querySelectorAll('.portfolio-item, .about-card, .skills-card, .experience-card, .contact-card, .social-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+});
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// ===== CUSTOM CURSOR (Desktop Only) =====
+function initCustomCursor() {
+    // Check if touch device
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M0 0h12v4H8v4H4v4H0V0z" fill="#dc2626"/>
+            <path d="M12 4h4v4h-4V4z" fill="#dc2626"/>
+            <path d="M8 8h4v4H8V8z" fill="#dc2626"/>
+            <path d="M4 12h4v4H4v-4z" fill="#dc2626"/>
+            <path d="M0 16h4v4H0v-4z" fill="#dc2626"/>
+        </svg>
+    `;
+    
+    cursor.style.cssText = `
+        position: fixed;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.05s ease-out;
+    `;
+    
+    document.body.appendChild(cursor);
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+    
+    // Show cursor on interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .portfolio-item');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.2)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
+}
+
+initCustomCursor();
+
+// ===== CONSOLE EASTER EGG =====
+console.log('%c ART-Z PORTFOLIO ', 'background: #dc2626; color: white; font-size: 20px; font-family: monospace;');
+console.log('%c Yassine Wirzgane - Artist & Designer ', 'color: #3b82f6; font-size: 12px; font-family: monospace;');
+console.log('%c Press START to continue... ', 'color: #888; font-size: 10px; font-family: monospace;');
+
+</script>
+</body>
+</html>
